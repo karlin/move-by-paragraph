@@ -1,7 +1,7 @@
 {
   "name": "move-by-paragraph",
   "main": "./lib/move-by-paragraph",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Move by paragraphs",
   "activationEvents": [
     "move-by-paragraph:move-to-next-paragraph",
