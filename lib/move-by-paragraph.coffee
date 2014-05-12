@@ -12,9 +12,7 @@ module.exports =
   # Shamelessly lifted from atom/vim-mode:
   #
   nextParaPosition: (editor) ->
-    hasCursor = editor.getCursor()?
     start = editor.getCursorBufferPosition()
-    console.log "MoveByParagraph: has a cursor? (#{hasCursor})  start: (#{start.column},#{start.row})"
     scanRange = [start, editor.getEofBufferPosition()]
 
     {row, column} = editor.getEofBufferPosition()
@@ -27,9 +25,7 @@ module.exports =
     editor.screenPositionForBufferPosition(position)
 
   prevParaPosition: (editor) ->
-    hasCursor = editor.getCursor()?
     start = editor.getCursorBufferPosition()
-    console.log "MoveByParagraph: has a cursor? (#{hasCursor})  start: (#{start.column},#{start.row})"
 
     {row, column} = start
     scanRange = [[row-1, column], [0,0]]
