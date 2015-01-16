@@ -1,4 +1,4 @@
-'.editor':
+'.atom-text-editor':
   'alt-up': 'move-by-paragraph:move-to-previous-paragraph'
   'shift-alt-up': 'move-by-paragraph:select-to-previous-paragraph'
   'alt-down': 'move-by-paragraph:move-to-next-paragraph'
