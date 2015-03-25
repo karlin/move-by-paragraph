@@ -1,6 +1,3 @@
-# MoveByParagraph = require '../lib/move-by-paragraph'
-{WorkspaceView} = require 'atom'
-
 path = require 'path'
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 #
@@ -8,44 +5,56 @@ path = require 'path'
 # or `fdescribe`). Remove the `f` to unfocus the block.
 
 describe "MoveByParagraph", ->
-  [editor, editorView] = []
+  [editor, editorElement, workspaceElement] = []
 
   beforeEach ->
     runs ->
-      atom.workspaceView = new WorkspaceView
-      atom.workspaceView.openSync('sample.txt')
+      workspaceElement = atom.views.getView(atom.workspace)
 
-    runs ->
-      atom.workspaceView.attachToDom()
-      editorView = atom.workspaceView.getActiveView()
+    waitsForPromise ->
+      atom.workspace.open('sample.txt').then (ed) ->
+        editor = ed
+        editorElement = atom.views.getView(ed)
 
     waitsForPromise ->
       promise = atom.packages.activatePackage('move-by-paragraph')
-      atom.workspaceView.trigger 'move-by-paragraph:move-to-previous-paragraph'
+      atom.commands.dispatch workspaceElement, 'move-by-paragraph:move-to-previous-paragraph'
       promise
-
-    runs ->
-      {editor} = editorView
 
   describe "when the move-by-paragraph events are triggered", ->
     it "moves to the next paragraph", ->
-      editor.moveCursorToBeginningOfLine()
-      editorView.trigger 'move-by-paragraph:move-to-next-paragraph'
+      editor.moveToBeginningOfLine()
+      atom.commands.dispatch editorElement, 'move-by-paragraph:move-to-next-paragraph'
       expect(editor.getCursorBufferPosition()).toEqual [1, 0]
-      editorView.trigger 'move-by-paragraph:move-to-next-paragraph'
+      atom.commands.dispatch editorElement, 'move-by-paragraph:move-to-next-paragraph'
       expect(editor.getCursorBufferPosition()).toEqual [4, 0]
 
     it "moves to the previous paragraph", ->
-      editor.moveCursorToBeginningOfLine()
-      editorView.trigger 'move-by-paragraph:move-to-previous-paragraph'
+      editor.moveToBeginningOfLine()
+      atom.commands.dispatch editorElement, 'move-by-paragraph:move-to-previous-paragraph'
       expect(editor.getCursorBufferPosition()).toEqual [0, 0]
-      editorView.trigger 'move-by-paragraph:move-to-next-paragraph'
-      editorView.trigger 'move-by-paragraph:move-to-next-paragraph'
+      atom.commands.dispatch editorElement, 'move-by-paragraph:move-to-next-paragraph'
+      atom.commands.dispatch editorElement, 'move-by-paragraph:move-to-next-paragraph'
       expect(editor.getCursorBufferPosition()).toEqual [4, 0]
-      editorView.trigger 'move-by-paragraph:move-to-previous-paragraph'
+      atom.commands.dispatch editorElement, 'move-by-paragraph:move-to-previous-paragraph'
       expect(editor.getCursorBufferPosition()).toEqual [1, 0]
 
     it "selects to the previous paragraph", ->
-      expect('to do')
+      editor.moveToBeginningOfLine()
+      atom.commands.dispatch editorElement, 'move-by-paragraph:select-to-next-paragraph'
+      expect(editor.getSelectedBufferRange()).toEqual [[0, 0], [1, 0]]
+      atom.commands.dispatch editorElement,
+      'move-by-paragraph:select-to-next-paragraph'
+      expect(editor.getSelectedBufferRange()).toEqual [[0, 0], [4, 0]]
+
     it "selects to the next paragraph", ->
-      expect('to do')
+      editor.moveToBeginningOfLine()
+      atom.commands.dispatch editorElement, 'move-by-paragraph:select-to-previous-paragraph'
+      expect(editor.getSelectedBufferRange()).toEqual [[0, 0], [0, 0]]
+      atom.commands.dispatch editorElement, 'move-by-paragraph:move-to-next-paragraph'
+      atom.commands.dispatch editorElement, 'move-by-paragraph:move-to-next-paragraph'
+      expect(editor.getCursorBufferPosition()).toEqual [4, 0]
+      atom.commands.dispatch editorElement, 'move-by-paragraph:select-to-previous-paragraph'
+      expect(editor.getSelectedBufferRange()).toEqual [[4, 0], [1, 0]]
+      atom.commands.dispatch editorElement, 'move-by-paragraph:select-to-previous-paragraph'
+      expect(editor.getSelectedBufferRange()).toEqual [[4, 0], [0, 0]]

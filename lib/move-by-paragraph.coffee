@@ -1,12 +1,13 @@
 _ = require 'underscore-plus'
-{$$, Point, Range} = require 'atom'
+{$$} = require 'atom-space-pen-views'
+{Point, Range} = require 'atom'
 
 module.exports =
-  activate: (state) ->
-    atom.workspaceView.command "move-by-paragraph:move-to-next-paragraph", => @byParagraph('move', 'next')
-    atom.workspaceView.command "move-by-paragraph:select-to-next-paragraph", => @byParagraph('select', 'next')
-    atom.workspaceView.command "move-by-paragraph:move-to-previous-paragraph", => @byParagraph('move', 'previous')
-    atom.workspaceView.command "move-by-paragraph:select-to-previous-paragraph", => @byParagraph('select', 'previous')
+  activate: ->
+    atom.commands.add 'atom-workspace', 'move-by-paragraph:move-to-next-paragraph', => @byParagraph('move', 'next')
+    atom.commands.add 'atom-workspace', 'move-by-paragraph:select-to-next-paragraph', => @byParagraph('select', 'next')
+    atom.commands.add 'atom-workspace', 'move-by-paragraph:move-to-previous-paragraph', => @byParagraph('move', 'previous')
+    atom.commands.add 'atom-workspace', 'move-by-paragraph:select-to-previous-paragraph', => @byParagraph('select', 'previous')
 
   #
   # Shamelessly lifted from atom/vim-mode:
@@ -38,7 +39,7 @@ module.exports =
     editor.screenPositionForBufferPosition(position)
 
   byParagraph: (action, dir) ->
-    editor = atom.workspace.getActiveEditor()
+    editor = atom.workspace.getActiveTextEditor()
     return unless editor?
 
     dirs =
