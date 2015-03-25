@@ -40,6 +40,21 @@ describe "MoveByParagraph", ->
       expect(editor.getCursorBufferPosition()).toEqual [1, 0]
 
     it "selects to the previous paragraph", ->
-      expect('to do')
+      editor.moveToBeginningOfLine()
+      atom.commands.dispatch editorElement, 'move-by-paragraph:select-to-next-paragraph'
+      expect(editor.getSelectedBufferRange()).toEqual [[0, 0], [1, 0]]
+      atom.commands.dispatch editorElement,
+      'move-by-paragraph:select-to-next-paragraph'
+      expect(editor.getSelectedBufferRange()).toEqual [[0, 0], [4, 0]]
+
     it "selects to the next paragraph", ->
-      expect('to do')
+      editor.moveToBeginningOfLine()
+      atom.commands.dispatch editorElement, 'move-by-paragraph:select-to-previous-paragraph'
+      expect(editor.getSelectedBufferRange()).toEqual [[0, 0], [0, 0]]
+      atom.commands.dispatch editorElement, 'move-by-paragraph:move-to-next-paragraph'
+      atom.commands.dispatch editorElement, 'move-by-paragraph:move-to-next-paragraph'
+      expect(editor.getCursorBufferPosition()).toEqual [4, 0]
+      atom.commands.dispatch editorElement, 'move-by-paragraph:select-to-previous-paragraph'
+      expect(editor.getSelectedBufferRange()).toEqual [[4, 0], [1, 0]]
+      atom.commands.dispatch editorElement, 'move-by-paragraph:select-to-previous-paragraph'
+      expect(editor.getSelectedBufferRange()).toEqual [[4, 0], [0, 0]]
