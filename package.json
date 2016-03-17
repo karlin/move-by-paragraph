@@ -3,21 +3,9 @@
   "main": "./lib/move-by-paragraph",
   "version": "1.1.1",
   "description": "Move by paragraphs",
-  "activationCommands": {
-    "atom-workspace": [
-      "move-by-paragraph:move-to-next-paragraph",
-      "move-by-paragraph:select-to-next-paragraph",
-      "move-by-paragraph:move-to-previous-paragraph",
-      "move-by-paragraph:select-to-previous-paragraph"
-    ]
-  },
   "repository": "https://github.com/karlin/move-by-paragraph",
   "license": "MIT",
   "engines": {
     "atom": "*"
-  },
-  "dependencies": {
-    "underscore-plus": "1.x",
-    "atom-space-pen-views": "^2.0.3"
   }
 }
