@@ -1,7 +1,7 @@
 {
   "name": "move-by-paragraph",
   "main": "./lib/move-by-paragraph",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Move by paragraphs",
   "repository": "https://github.com/karlin/move-by-paragraph",
   "license": "MIT",
