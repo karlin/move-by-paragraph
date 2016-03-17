@@ -1,7 +1,7 @@
 {
   "name": "move-by-paragraph",
   "main": "./lib/move-by-paragraph",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Move by paragraphs",
   "activationCommands": {
     "atom-workspace": [
