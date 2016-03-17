@@ -2,8 +2,8 @@
   {
     'label': 'Selection'
     'submenu': [
-      { 'label': 'Select to Previous Paragraph', 'command': 'editor:select-to-beginning-of-previous-paragraph' }
-      { 'label': 'Select to Next Paragraph', 'command': 'editor:select-to-beginning-of-next-paragraph' }
+      { 'label': 'Select to Beginning of Paragraph', 'command': 'editor:select-to-beginning-of-previous-paragraph' }
+      { 'label': 'Select to End of Paragraph', 'command': 'editor:select-to-beginning-of-next-paragraph' }
     ]
   }
 ]
