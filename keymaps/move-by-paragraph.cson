@@ -1,5 +1,5 @@
 'atom-text-editor:not([mini])':
-  'alt-up': 'move-by-paragraph:move-to-previous-paragraph'
-  'shift-alt-up': 'move-by-paragraph:select-to-previous-paragraph'
-  'alt-down': 'move-by-paragraph:move-to-next-paragraph'
-  'shift-alt-down': 'move-by-paragraph:select-to-next-paragraph'
+  'alt-up': 'editor:move-to-beginning-of-previous-paragraph'
+  'alt-down': 'editor:move-to-beginning-of-next-paragraph'
+  'shift-alt-up': 'editor:select-to-beginning-of-previous-paragraph'
+  'shift-alt-down': 'editor:select-to-beginning-of-next-paragraph'
